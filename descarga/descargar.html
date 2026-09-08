@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar Dawn Quest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="descargar.css">
+  </head>
+  <body>
+
+    <header class="site-header">
+      <div class="nav-inner">
+        <a class="back-link" href="/index.html">&larr; Volver a Dawn Quest</a>
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div class="brand-text">Dawn Quest</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="dl-hero">
+      <h1>Descargar Dawn Quest</h1>
+      <p>Elegí tu plataforma para ver el build correcto y cómo instalarlo.</p>
+      <span class="version-badge" id="version-badge">Versión: —</span>
+    </section>
+
+    <div class="detected-notice">
+      <div class="notice-box">
+        <span id="detected-text">Detectando tu dispositivo...</span>
+      </div>
+    </div>
+
+    <div class="platform-toggle" role="tablist" aria-label="Elegir plataforma">
+      <button class="toggle-btn" data-platform="pc" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2"><rect x="3" y="4" width="18" height="12"
+            rx="1" /><path d="M8 20h8M12 16v4" /></svg>
+        PC
+      </button>
+      <button class="toggle-btn" data-platform="celular" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2"><rect x="6" y="2" width="12" height="20"
+            rx="2" /><path d="M11 18h2" /></svg>
+        Celular
+      </button>
+    </div>
+
+    <main class="wrap">
+
+      <section class="platform-panel" id="panel-pc">
+        <div class="builds-grid">
+
+          <div class="build-card">
+            <div class="build-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)"
+                stroke-width="2"><rect x="3" y="4" width="18" height="12"
+                  rx="1" /><path d="M8 20h8M12 16v4" /></svg>
+            </div>
+            <div class="build-info">
+              <h3>Windows</h3>
+              <div class="build-meta">Tamaño: <span
+                  id="windows-size">—</span></div>
+              <ul class="build-reqs">
+                <li>Windows 10 o superior, 64 bits</li>
+                <li>ejecutar Dawn Quest Beta.exe</li>
+              </ul>
+              <a class="btn btn-primary" href="#" id="windows-btn"
+                download>Descargar para Windows</a>
+            </div>
+          </div>
+
+          <p class="note-card">Por ahora solo hay build para Windows. Si
+            necesitás Linux o macOS, avisanos en el repositorio de GitHub.</p>
+        </div>
+      </section>
+
+      <section class="platform-panel" id="panel-celular">
+        <div class="builds-grid">
+
+          <div class="build-card">
+            <div class="build-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)"
+                stroke-width="2"><rect x="6" y="2" width="12" height="20"
+                  rx="2" /><path d="M11 18h2" /></svg>
+            </div>
+            <div class="build-info">
+              <h3>Android</h3>
+              <div class="build-meta">Tamaño: <span
+                  id="android-size">—</span></div>
+              <ul class="build-reqs">
+                <li>Android 8.0 o superior</li>
+                <li>Hay que permitir instalar apps de "orígenes desconocidos" la
+                  primera vez</li>
+              </ul>
+              <a class="btn btn-primary" href="#" id="android-btn"
+                download>Descargar APK</a>
+            </div>
+          </div>
+
+          <p class="note-card">iOS todavía no está disponible. Lo vamos a
+            agregar más adelante si el proyecto avanza en esa dirección.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <script src="descargar.js"></script>
+  </body>
+</html>
