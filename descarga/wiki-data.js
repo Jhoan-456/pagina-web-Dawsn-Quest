@@ -58,6 +58,27 @@ const WIKI_DATA = [
     description: "Plantera Odia que le digas Bulbo, pero toco decirle asi :)"
   },
   {
+    id: "personaje-byte",
+    category: "personaje",
+    name: "Byte",
+    summary: "Es un nuevo personaje agregado al juego que utiliza atributos que cambian las caracheristicas base de las armas",
+    stats: [
+      { label: "Vida", value: "160.0" },
+      { label: "Escudo", value: "150.0" },
+      { label: "Energia", value: "400.0" },
+      { label: "Fuerza", value: "5" },
+      { label: "Inteligencia", value: "9" },
+      { label: "Velocidad de Ataque", value: "6.5" },
+      { label: "Velocidad de Proyectil", value: "14.0" },
+      { label: "Velocidad de Movimiento", value: "10.0" },
+      { label: "Probabilidad de Critico", value: "1.5" },
+      { label: "Suerte", value: "1.2" },
+      { label: "Activo", value: "Ítem inicial: Bateria Portatil (Al usarla recarga instantáneamente la pasiva y da un pequeño escudo)" },
+      { label: "Pasivo", value: "SobreCarga (Cada 8s su proximo disparo no fisico hacen un 30% mas de daño y deja un pequeño rastro eléctrico)" },
+    ],
+    description: "Es un poco timido pero le coges cariño como a mi y a los otros desarrolladores"
+  },
+  {
     id: "arma-default",
     category: "armas",
     name: "Arma Default",
@@ -114,6 +135,7 @@ const WIKI_CATEGORIES = [
   { id: "todos", label: "Todos" },
   { id: "enemigos", label: "Enemigos" },
   { id: "jefes", label: "Jefes"},
+  { id: "personaje", label: "Personajes" },
   { id: "armas", label: "Armas" },
   { id: "objetos", label: "Objetos" },
   { id: "mapa-bioma", label: "Bioma" }
