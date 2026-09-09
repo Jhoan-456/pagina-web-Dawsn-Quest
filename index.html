@@ -25,6 +25,7 @@
       <button class="tab-btn" data-tab="repo" role="tab" aria-selected="false">Repositorio</button>
       <button class="tab-btn" data-tab="avances" role="tab" aria-selected="false">Avances</button>
       <button class="tab-btn" data-tab="wiki" role="tab" aria-selected="false">Wiki</button>
+      <button class="tab-btn" data-tab="informarnos" role="tab" aria-selected="false">Informarnos</button>
     </nav>
   </div>
 </header>
@@ -146,6 +147,33 @@
       <div class="wiki-detail" id="wiki-detail"></div>
     </div>
   </section>
+  <section class="panel" id="panel-informarnos">
+    <h2 class="section-title">Informarnos</h2>    
+    <p class="section-sub">¿Encontraste un error o tenés una idea para el juego? Dejanosla acá — la podés editar o borrar cuando quieras.</p>     
+    <div class="report-form">      
+      <div class="report-type-toggle" role="tablist" aria-label="Tipo de mensaje">        
+        <button class="report-type-btn active" data-type="error" type="button">🐞 Reportar error</button>        
+        <button class="report-type-btn" data-type="idea" type="button">💡 Agregar idea</button>      
+      </div>      
+      <textarea id="report-text" class="report-textarea" placeholder="Contanos qué pasó o qué se te ocurrió..." rows="3"></textarea>      
+      <button class="btn btn-primary" id="report-submit" type="button">Enviar</button>    
+    </div>     
+      <div class="buzones-grid">      
+        <div class="buzon">        
+        <h3 class="buzon-title">🐞 Buzón de errores <span class="buzon-count" id="count-error">0</span></h3>        
+        <ul class="buzon-list" id="list-error">          
+        <li class="buzon-empty">Todavía no hay errores reportados.</li>        
+      </ul>      
+      </div>     
+      <div class="buzon">        
+        <h3 class="buzon-title">💡 Buzón de ideas <span class="buzon-count" id="count-idea">0</span></h3>        
+        <ul class="buzon-list" id="list-idea">          
+        <li class="buzon-empty">Todavía no hay ideas agregadas.</li>        
+      </ul>      
+      </div>    
+    </div>     
+      <p class="note-card">Estos mensajes se guardan solo en este navegador — no se envían a ningún servidor ni se comparten con otros visitantes de la página.</p>  
+    </section>
 
 </main>
 
@@ -201,6 +229,7 @@
 </footer>
 
 <script src="/descarga/wiki-data.js"></script>
+<script src="/descarga/informarnos.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

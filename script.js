@@ -20,6 +20,7 @@ const panels = {
   repo: document.getElementById('panel-repo'),
   avances: document.getElementById('panel-avances'),
   wiki: document.getElementById('panel-wiki'),
+  informarnos: document.getElementById('panel-informarnos'),
 };
 
 buttons.forEach(btn => {
