@@ -1,12 +1,8 @@
 // ---- Buzones de errores e ideas (Firebase Firestore) ----
-// Los mensajes ahora se guardan en la nube: los ve cualquiera que entre a la página.
-// Cada navegador solo puede editar/borrar los mensajes que ÉL creó (se recuerda con localStorage),
-// pero todos pueden LEER todos los mensajes.
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getFirestore, collection, addDoc, onSnapshot,
-  doc, updateDoc, deleteDoc, query, orderBy
+  doc, updateDoc, deleteDoc, query, orderBy, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // ---- Configuración de tu proyecto Firebase ----
@@ -24,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const COLLECTION_NAME = 'buzon_mensajes';
 
-// ---- Qué mensajes son "míos" (para mostrar editar/borrar solo en los propios) ----
+// ---- Identificación local de mensajes creados ----
 const MY_MESSAGES_KEY = 'dawnquest_mis_mensajes';
 
 function getMyMessageIds() {
@@ -35,22 +31,25 @@ function getMyMessageIds() {
     return [];
   }
 }
+
 function addMyMessageId(id) {
   const ids = getMyMessageIds();
   ids.push(id);
   localStorage.setItem(MY_MESSAGES_KEY, JSON.stringify(ids));
 }
+
 function removeMyMessageId(id) {
   const ids = getMyMessageIds().filter(i => i !== id);
   localStorage.setItem(MY_MESSAGES_KEY, JSON.stringify(ids));
 }
 
 let activeReportType = 'error';
-let allMessages = []; // se actualiza solo, en tiempo real, desde Firestore
+let allMessages = [];
 
 function formatFecha(timestamp) {
-  if (!timestamp) return '';
-  const d = new Date(timestamp);
+  if (!timestamp) return 'Cargando fecha...';
+  // Soporta tanto Timestamp de Firestore como números (milisegundos)
+  const d = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
   const pad = (n) => String(n).padStart(2, '0');
   return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
@@ -91,7 +90,7 @@ function renderBuzon(type) {
     li.appendChild(textEl);
     li.appendChild(metaEl);
 
-    // Solo mostrar Editar/Borrar si este mensaje lo creó este mismo navegador
+    // Solo mostrar Editar/Borrar si este mensaje lo creó este navegador
     if (myIds.includes(item.id)) {
       const actionsEl = document.createElement('div');
       actionsEl.className = 'buzon-item-actions';
@@ -125,7 +124,7 @@ async function addItem(type, text) {
     const docRef = await addDoc(collection(db, COLLECTION_NAME), {
       type,
       text,
-      created: Date.now()
+      created: serverTimestamp() // Usar la hora oficial del servidor de Firebase
     });
     addMyMessageId(docRef.id);
   } catch (e) {
@@ -158,14 +157,20 @@ function startEdit(item, liEl, textEl) {
   const saveBtn = document.createElement('button');
   saveBtn.className = 'buzon-item-btn';
   saveBtn.textContent = 'Guardar';
+  
   saveBtn.addEventListener('click', async () => {
     const newText = textarea.value.trim();
     if (!newText) return;
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Guardando...';
+
     try {
       await updateDoc(doc(db, COLLECTION_NAME, item.id), { text: newText });
     } catch (e) {
       console.error('No se pudo editar:', e);
       alert('No se pudo guardar el cambio.');
+      renderAll(); // Restaurar vista si falla
     }
   });
 
@@ -184,7 +189,7 @@ function initInformarnos() {
   const textArea = document.getElementById('report-text');
   const submitBtn = document.getElementById('report-submit');
 
-  if (!submitBtn) return; // el panel no está en esta página
+  if (!submitBtn) return;
 
   typeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -211,7 +216,6 @@ function initInformarnos() {
     submitBtn.textContent = 'Enviar';
   });
 
-  // Escucha en tiempo real: cuando alguien agrega/edita/borra, se actualiza para todos
   const q = query(collection(db, COLLECTION_NAME), orderBy('created', 'desc'));
   onSnapshot(q, (snapshot) => {
     allMessages = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
