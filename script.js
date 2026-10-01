@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ---- Configuración editable ----
   const CONFIG = {
-    version: "v0.0.2 — Alpha",
+    version: "v0.0.3 — Alpha",
     githubUrl: "https://github.com/Jhoan-456/DAWN-QUEST-",
     downloadUrl: "/descarga/descargar.html",
-    WhatsappUrl: "https://chat.whatsapp.com/LqbTrx6LKftEvTQrSPUo6a?s=cl&p=a&mlu=4&ilr=4"
+    WhatsappUrl: "https://discord.gg/sXmgZVQ5A"
   };
 
   // Asignación segura con validación de existencia de elementos
